@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 820" width="1000" height="820" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- ── DEFS ── -->
+  <defs>
+    <marker id="arr"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3a7bd5"/></marker>
+    <marker id="arrC" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#4a90d9"/></marker>
+    <marker id="arrR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e05050"/></marker>
+    <marker id="arrO" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e0a030"/></marker>
+    <marker id="arrG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#50c080"/></marker>
+    <marker id="arrB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#5090e0"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="820" fill="#0f1a2e"/>
+
+  <!-- TITLE -->
+  <text x="500" y="36" text-anchor="middle" font-size="17" font-weight="bold" fill="#e2eaf8" letter-spacing="1">Multimodal Vision Transformer — System Architecture</text>
+
+  <!-- ══ ROW 1: INPUTS (y 55-130) ══ -->
+  <text x="105" y="56" text-anchor="middle" font-size="10" fill="#3a7bd5" font-weight="bold" letter-spacing="2">CT BRANCH</text>
+  <text x="895" y="56" text-anchor="middle" font-size="10" fill="#3a7bd5" font-weight="bold" letter-spacing="2">X-RAY BRANCH</text>
+  <text x="500" y="56" text-anchor="middle" font-size="9" fill="#3a7bd5" opacity="0.7">Architecturally identical · Weights NOT shared · Trained independently</text>
+
+  <rect x="30"  y="62" width="150" height="62" rx="10" fill="#1a2e4a" stroke="#3a7bd5" stroke-width="2"/>
+  <text x="105" y="85"  text-anchor="middle" font-size="12" fill="#7ab8f5" font-weight="bold">CT SCAN INPUT</text>
+  <text x="105" y="101" text-anchor="middle" font-size="11" fill="#aac8e8">224 x 224 x 3</text>
+  <text x="105" y="116" text-anchor="middle" font-size="10" fill="#6a8caa">3D NIfTI / NPZ sliced</text>
+
+  <rect x="820" y="62" width="150" height="62" rx="10" fill="#1a2e4a" stroke="#3a7bd5" stroke-width="2"/>
+  <text x="895" y="85"  text-anchor="middle" font-size="12" fill="#7ab8f5" font-weight="bold">X-RAY INPUT</text>
+  <text x="895" y="101" text-anchor="middle" font-size="11" fill="#aac8e8">224 x 224 x 3</text>
+  <text x="895" y="116" text-anchor="middle" font-size="10" fill="#6a8caa">PNG / JPEG resized</text>
+
+  <line x1="105" y1="124" x2="105" y2="148" stroke="#3a7bd5" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="895" y1="124" x2="895" y2="148" stroke="#3a7bd5" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ══ ROW 2: PATCH EMBEDDING (y 148-205) ══ -->
+  <rect x="30"  y="148" width="150" height="52" rx="8" fill="#162240" stroke="#2a5fa0" stroke-width="1.5"/>
+  <text x="105" y="169" text-anchor="middle" font-size="11" fill="#6ab0f5" font-weight="bold">PATCH EMBEDDING</text>
+  <text x="105" y="184" text-anchor="middle" font-size="10" fill="#8aaccc">Conv2D 16x16 stride 16</text>
+  <text x="105" y="197" text-anchor="middle" font-size="10" fill="#8aaccc">196 patches x 64 dim</text>
+
+  <rect x="820" y="148" width="150" height="52" rx="8" fill="#162240" stroke="#2a5fa0" stroke-width="1.5"/>
+  <text x="895" y="169" text-anchor="middle" font-size="11" fill="#6ab0f5" font-weight="bold">PATCH EMBEDDING</text>
+  <text x="895" y="184" text-anchor="middle" font-size="10" fill="#8aaccc">Conv2D 16x16 stride 16</text>
+  <text x="895" y="197" text-anchor="middle" font-size="10" fill="#8aaccc">196 patches x 64 dim</text>
+
+  <line x1="105" y1="200" x2="105" y2="224" stroke="#2a5fa0" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="895" y1="200" x2="895" y2="224" stroke="#2a5fa0" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ══ ROW 3: TRANSFORMER BLOCKS (y 224-418) ══ -->
+  <!-- CT dashed outline -->
+  <rect x="22"  y="224" width="166" height="190" rx="10" fill="none" stroke="#1e4a7a" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="105" y="241" text-anchor="middle" font-size="10" fill="#4a8fcc" font-weight="bold">x4 TRANSFORMER ENCODER BLOCKS</text>
+  <rect x="32"  y="247" width="146" height="34" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="105" y="261" text-anchor="middle" font-size="10" fill="#7ab0e0">LayerNorm</text>
+  <text x="105" y="275" text-anchor="middle" font-size="10" fill="#5a90c0">MultiHead Self-Attention (4 heads)</text>
+  <rect x="32"  y="287" width="146" height="22" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="105" y="302" text-anchor="middle" font-size="10" fill="#6aa0d5">Residual Add + LayerNorm</text>
+  <rect x="32"  y="315" width="146" height="34" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="105" y="329" text-anchor="middle" font-size="10" fill="#7ab0e0">MLP: Dense(128, GELU)</text>
+  <text x="105" y="343" text-anchor="middle" font-size="10" fill="#5a90c0">Dense(64) + Residual Add</text>
+  <text x="105" y="370" text-anchor="middle" font-size="9" fill="#3a6090" font-style="italic">key_dim=64 per head</text>
+  <text x="105" y="385" text-anchor="middle" font-size="9" fill="#3a6090" font-style="italic">Output: 196 x 64 sequence</text>
+
+  <!-- X-ray dashed outline -->
+  <rect x="812" y="224" width="166" height="190" rx="10" fill="none" stroke="#1e4a7a" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="895" y="241" text-anchor="middle" font-size="10" fill="#4a8fcc" font-weight="bold">x4 TRANSFORMER ENCODER BLOCKS</text>
+  <rect x="822" y="247" width="146" height="34" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="895" y="261" text-anchor="middle" font-size="10" fill="#7ab0e0">LayerNorm</text>
+  <text x="895" y="275" text-anchor="middle" font-size="10" fill="#5a90c0">MultiHead Self-Attention (4 heads)</text>
+  <rect x="822" y="287" width="146" height="22" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="895" y="302" text-anchor="middle" font-size="10" fill="#6aa0d5">Residual Add + LayerNorm</text>
+  <rect x="822" y="315" width="146" height="34" rx="5" fill="#0e2040" stroke="#1e4a7a" stroke-width="1"/>
+  <text x="895" y="329" text-anchor="middle" font-size="10" fill="#7ab0e0">MLP: Dense(128, GELU)</text>
+  <text x="895" y="343" text-anchor="middle" font-size="10" fill="#5a90c0">Dense(64) + Residual Add</text>
+  <text x="895" y="370" text-anchor="middle" font-size="9" fill="#3a6090" font-style="italic">key_dim=64 per head</text>
+  <text x="895" y="385" text-anchor="middle" font-size="9" fill="#3a6090" font-style="italic">Output: 196 x 64 sequence</text>
+
+  <!-- Centre panels -->
+  <rect x="415" y="224" width="170" height="80" rx="9" fill="#0d1e30" stroke="#2a5060" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="500" y="242" text-anchor="middle" font-size="10" fill="#40a0b0" font-weight="bold">INTERPRETABILITY</text>
+  <text x="500" y="257" text-anchor="middle" font-size="9" fill="#3a8090">Attention Map Visualization</text>
+  <text x="500" y="270" text-anchor="middle" font-size="9" fill="#3a8090">(last MHA layer, avg over heads)</text>
+  <text x="500" y="283" text-anchor="middle" font-size="9" fill="#3a8090">Occlusion Sensitivity</text>
+  <text x="500" y="296" text-anchor="middle" font-size="9" fill="#3a8090">(16x16 patches, Gaussian blur)</text>
+
+  <rect x="415" y="318" width="170" height="92" rx="9" fill="#0d1e30" stroke="#2a5060" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="500" y="336" text-anchor="middle" font-size="10" fill="#40a0b0" font-weight="bold">TRAINING CONFIG</text>
+  <text x="500" y="351" text-anchor="middle" font-size="9" fill="#3a8090">Optimizer: Adam  lr=1e-4</text>
+  <text x="500" y="364" text-anchor="middle" font-size="9" fill="#3a8090">Loss: Categorical Cross-Entropy</text>
+  <text x="500" y="377" text-anchor="middle" font-size="9" fill="#3a8090">Epochs: 30  EarlyStopping p=5</text>
+  <text x="500" y="390" text-anchor="middle" font-size="9" fill="#3a8090">Batch: 16  ~1.2M params</text>
+  <text x="500" y="403" text-anchor="middle" font-size="9" fill="#3a8090">Val Accuracy: ~88%</text>
+
+  <!-- Arrows down from transformer to GAP -->
+  <line x1="105" y1="414" x2="105" y2="436" stroke="#2a5fa0" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="895" y1="414" x2="895" y2="436" stroke="#2a5fa0" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ══ ROW 4: GLOBAL AVG POOL (y 436-486) ══ -->
+  <rect x="30"  y="436" width="150" height="42" rx="8" fill="#0d1e35" stroke="#2a5fa0" stroke-width="1.5"/>
+  <text x="105" y="454" text-anchor="middle" font-size="11" fill="#6ab0f5" font-weight="bold">GLOBAL AVG POOL</text>
+  <text x="105" y="470" text-anchor="middle" font-size="10" fill="#8aaccc">Output: 64D feature vector</text>
+
+  <rect x="820" y="436" width="150" height="42" rx="8" fill="#0d1e35" stroke="#2a5fa0" stroke-width="1.5"/>
+  <text x="895" y="454" text-anchor="middle" font-size="11" fill="#6ab0f5" font-weight="bold">GLOBAL AVG POOL</text>
+  <text x="895" y="470" text-anchor="middle" font-size="10" fill="#8aaccc">Output: 64D feature vector</text>
+
+  <!-- Diagonal arrows converging to CONCAT -->
+  <!-- CT right edge (180,457) -> CONCAT left edge (350,542) -->
+  <line x1="180" y1="457" x2="349" y2="540" stroke="#3a7bd5" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- X-ray left edge (820,457) -> CONCAT right edge (650,542) -->
+  <line x1="820" y1="457" x2="651" y2="540" stroke="#3a7bd5" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="258" y="500" text-anchor="middle" font-size="9" fill="#3a7bd5">CT: 64D</text>
+  <text x="742" y="500" text-anchor="middle" font-size="9" fill="#3a7bd5">X-ray: 64D</text>
+
+  <!-- ══ ROW 5: CONCATENATE (y 542-592) ══ -->
+  <rect x="350" y="542" width="300" height="46" rx="10" fill="#142b50" stroke="#4a90d9" stroke-width="2"/>
+  <text x="500" y="562" text-anchor="middle" font-size="13" fill="#5ab0ff" font-weight="bold">CONCATENATE</text>
+  <text x="500" y="579" text-anchor="middle" font-size="11" fill="#8ac8f8">[ CT 64D || X-ray 64D ] = 128D fused vector</text>
+
+  <line x1="500" y1="588" x2="500" y2="608" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrC)"/>
+
+  <!-- ══ ROW 6: DENSE LAYERS (y 608-678) ══ -->
+  <rect x="370" y="608" width="260" height="32" rx="7" fill="#1a3a60" stroke="#3a80c0" stroke-width="1.5"/>
+  <text x="500" y="629" text-anchor="middle" font-size="11" fill="#7ac0f0">Dense(512, ReLU)  Dropout(0.4)</text>
+
+  <line x1="500" y1="640" x2="500" y2="658" stroke="#3a80c0" stroke-width="1.5" marker-end="url(#arrC)"/>
+
+  <rect x="390" y="658" width="220" height="32" rx="7" fill="#162e50" stroke="#3070b0" stroke-width="1.5"/>
+  <text x="500" y="679" text-anchor="middle" font-size="11" fill="#6ab0e8">Dense(256, ReLU)  Dropout(0.3)</text>
+
+  <line x1="500" y1="690" x2="500" y2="708" stroke="#3070b0" stroke-width="1.5" marker-end="url(#arrC)"/>
+
+  <!-- ══ ROW 7: SOFTMAX (y 708-730) ══ -->
+  <rect x="430" y="708" width="140" height="24" rx="6" fill="#0f2040" stroke="#4a90d9" stroke-width="1.5"/>
+  <text x="500" y="724" text-anchor="middle" font-size="10" fill="#5ab0ff" font-weight="bold">Softmax (4 classes)</text>
+
+  <!-- Vertical stem down from softmax -->
+  <line x1="500" y1="732" x2="500" y2="748" stroke="#30a0d0" stroke-width="1.5"/>
+  <!-- Horizontal bus -->
+  <line x1="155" y1="748" x2="845" y2="748" stroke="#30a0d0" stroke-width="1.5"/>
+  <!-- 4 vertical drops to class boxes -->
+  <line x1="155" y1="748" x2="155" y2="762" stroke="#e05050" stroke-width="1.5" marker-end="url(#arrR)"/>
+  <line x1="385" y1="748" x2="385" y2="762" stroke="#e0a030" stroke-width="1.5" marker-end="url(#arrO)"/>
+  <line x1="615" y1="748" x2="615" y2="762" stroke="#50c080" stroke-width="1.5" marker-end="url(#arrG)"/>
+  <line x1="845" y1="748" x2="845" y2="762" stroke="#5090e0" stroke-width="1.5" marker-end="url(#arrB)"/>
+
+  <!-- ══ ROW 8: OUTPUT CLASS BOXES (y 762-810) ══ -->
+  <!-- COVID-19 — centred at x=155, width=150 → x=80..230 -->
+  <rect x="80"  y="762" width="150" height="46" rx="8" fill="#2a1010" stroke="#e05050" stroke-width="2"/>
+  <text x="155" y="782" text-anchor="middle" font-size="12" fill="#f07070" font-weight="bold">COVID-19</text>
+  <text x="155" y="799" text-anchor="middle" font-size="9"  fill="#c05050">P:91% R:89% F1:90%</text>
+
+  <!-- Pneumonia — centred at x=385, width=150 → x=310..460 -->
+  <rect x="310" y="762" width="150" height="46" rx="8" fill="#2a1e00" stroke="#e0a030" stroke-width="2"/>
+  <text x="385" y="782" text-anchor="middle" font-size="12" fill="#f0c060" font-weight="bold">PNEUMONIA</text>
+  <text x="385" y="799" text-anchor="middle" font-size="9"  fill="#c08020">P:86% R:84% F1:85%</text>
+
+  <!-- Tuberculosis — centred at x=615, width=150 → x=540..690 -->
+  <rect x="540" y="762" width="150" height="46" rx="8" fill="#0a2010" stroke="#50c080" stroke-width="2"/>
+  <text x="615" y="782" text-anchor="middle" font-size="12" fill="#70e0a0" font-weight="bold">TUBERCULOSIS</text>
+  <text x="615" y="799" text-anchor="middle" font-size="9"  fill="#40a060">P:88% R:90% F1:89%</text>
+
+  <!-- Normal — centred at x=845, width=150 → x=770..920 -->
+  <rect x="770" y="762" width="150" height="46" rx="8" fill="#0a1030" stroke="#5090e0" stroke-width="2"/>
+  <text x="845" y="782" text-anchor="middle" font-size="12" fill="#70b0f0" font-weight="bold">NORMAL</text>
+  <text x="845" y="799" text-anchor="middle" font-size="9"  fill="#4070c0">P:90% R:92% F1:91%</text>
+
+</svg>
